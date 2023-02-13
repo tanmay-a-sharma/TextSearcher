@@ -1,4 +1,4 @@
-# Nasuni Coding Exercise
+# Coding Exercise
 
 ## Overview
 
