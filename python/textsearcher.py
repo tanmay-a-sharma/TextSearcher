@@ -24,7 +24,47 @@ class TextSearcher(object):
             return False
     
 
+    
+
+# for search function (this)
+#FAILED python/test_textsearcher.py::test_matches_quotes_correctly[Early-1-expected_result1] - assert ['Very early ...
+#FAILED python/test_textsearcher.py::test_matches_end_of_file[universe-3-expected_result0] - AssertionError: assert...
+#FAILED python/test_textsearcher.py::test_multiple_searches_on_one_file - AssertionError: assert [] == ['one with t...
+#FAILED python/test_textsearcher.py::test_matches_overlapping_results[universe-3-expected_result0] - AssertionError...
+#=========================================== 4 failed, 22 passed in 0.17s ============================================
+
     def search(self, word:str, context:int=0)->list:
+        # Check if there is text to search
+        if self.text is None:
+            return []
+        
+        # Split the text into words
+        words = self.text.split()
+        # Create an empty list to store the search results
+        results = []
+        
+        # Iterate over each word in the text
+        for i, w in enumerate(words):
+            # Check if the word matches the search term (case-insensitive)
+            if w.lower() == word.lower():
+                # Determine the start and end index for the context around the search term
+                start = max(0, i - context)
+                end = min(len(words), i + context + 1)
+                
+                # Combine the words within the context into a single string
+                result = ' '.join(words[start:end])
+                
+                # Add the search result to the list of results
+                results.append(result)
+        
+        # Return the list of search results
+        return results
+
+
+
+
+"""
+def search(self, word:str, context:int=0)->list:
         # Searches for the given word in the text and returns the list of substrings
 
         # If the text is None, return an empty list
@@ -55,24 +95,10 @@ class TextSearcher(object):
 
 
 
-    def search(self, word:str, context:int=0)->list:
-        
 
-        if self.text is None:
-            return []
 
-        words = self.text.split()
-        results = []
-    
-        for i, w in enumerate(words):
-            if w.lower() == word.lower():
-                start = max(0, i - context)
-                end = min(len(words), i + context + 1)
-                result = ' '.join(words[start:end])
-                results.append(result)
-        return results
 
-"""
+
 
 def search(self, word:str, context:int=0)->list:
 
